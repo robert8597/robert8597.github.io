@@ -18,6 +18,11 @@
   <body>
     <input type="file" accept="image/*">
     <p><button onclick="getStream()">AUFNAHME video</button></p>
+    <div class="column">
+    <p><button type="button" onclick="getStream('audio')">Grab audio</button></p>
+    
+    <audio controls></audio>
+  </div>
     <p><video autoplay style="height: 180px; width: 240px;"></video></p>
     <p><button onclick="takePhoto()">Take Photo!</button></p>
     <p><img id="imageTag" width="240" height="180"></p>
