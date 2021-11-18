@@ -154,13 +154,13 @@ function readFiles(files) {
 
   var target = document.getElementById('textfeld');
   target.innerHTML = "";
-  var reader = new FileReader();
+
   for (var i = 0; i < files.length; ++i) {
     var item = document.createElement('li');
     item.setAttribute('data-idx', i);
     var file = files[i];
 
-    
+    var reader = new FileReader();
     reader.addEventListener('load', getReadFile(reader, i));
     reader.readAsText(file);
 
