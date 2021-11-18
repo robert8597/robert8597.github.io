@@ -166,7 +166,11 @@ function readFiles(files) {
 
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
-    target.innerHTML(file);
+  
+    reader.onload = function(e){
+		$("#target").val(e.target.result);
+	};
+	reader.readAsText($("#js-file")[0].files[0], "UTF-8");
   };
 }
 
