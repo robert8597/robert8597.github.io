@@ -153,7 +153,7 @@ function readFiles(files) {
   document.getElementById('count').innerHTML = files.length;
 
   var target = document.getElementById('target');
-  target.innerHTML = 'testAMK';
+  target.innerHTML = files;
 
   for (var i = 0; i < files.length; ++i) {
     var item = document.createElement('li');
