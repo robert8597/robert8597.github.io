@@ -58,18 +58,19 @@
   <div class="columns">
   <div class="column">
     <button class="btn-file">
-      Choose some files to read<br>(File API) <input type="file" onchange="readFiles(this.files)" multiple>
+      Choose some files to read<br>(File API) <input type="file" id="datei" onchange="readFiles(this.files)" multiple>
     </button>
     
     <p>Number of selected files: <b id="count">N/A</b></p>
   </div>
-  <div class="column">
+  <!-- <div class="column">
     <button class="btn-file" onclick="writeFile()">
       Choose file to create or overwrite<br>(Native File System API)
     </button>
-  </div>
+  </div> -->
 </div>
-
+<textarea id="target" name="target" rows="4" cols="50">
+    description</textarea>
 
 <script>
   //Speicher lesen
