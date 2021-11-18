@@ -71,13 +71,15 @@
 </div> -->
 <input type="file" onchange="previewFile()"><br>
 <p class="content">test</p>
+<textarea id="textfeld" rows="4" columns="20" readonly></textArea>
  <!--
-<textarea id="textfeld" rows="4" columns="20"></textArea>-->
+-->
 
 <script>
     //VON MIR
     function previewFile() {
-  const content = document.querySelector('.content');
+  //const content = document.querySelector('.content');
+  const content = document.getElementById('textfeld');
   const [file] = document.querySelector('input[type=file]').files;
   const reader = new FileReader();
 
