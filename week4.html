@@ -170,7 +170,7 @@ function readFiles(files) {
     reader.onload = function(e){
 		$("#target").val(e.target.result);
 	};
-	reader.readAsText($("datei")[0].files[0], "UTF-8");
+	reader.readAsText($("#datei")[0].files[0], "UTF-8");
   };
 }
 
