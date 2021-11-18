@@ -58,7 +58,7 @@
   <div class="columns">
   <div class="column">
     <button class="btn-file">
-      Choose some files to read<br>(File API) <input type="file" id="datei" onchange="readFiles(this.files)" multiple>
+      Choose some files to read<br>(File API) <input type="file" id="datei2" onchange="readFiles(this.files)" multiple>
     </button>
     
     <p>Number of selected files: <b id="count">N/A</b></p>
@@ -69,10 +69,16 @@
     </button>
   </div> -->
 </div>
-<textarea id="textfeld" name="target" rows="4" cols="50" readonly>
-    description</textarea>
+<input id="datei" type="file"/>
+<textarea id="textfeld" rows="4" columns="20"></textArea>
 
 <script>
+    var reader = new FileReader();
+reader.onload = function (e) {
+    var textArea = document.getElementById("textfeld");
+    textArea.value = e.target.result;
+};
+reader.readAsText(datei);
   //Speicher lesen
 if ('storage' in navigator && 'estimate' in navigator.storage) {
   navigator.storage.estimate()
@@ -166,7 +172,7 @@ function readFiles(files) {
 
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
-    target.innerText = file.result;
+    
   };
 }
 
