@@ -152,8 +152,8 @@ function getReadFile(reader, i) {
 function readFiles(files) {
   document.getElementById('count').innerHTML = files.length;
 
-  var target = document.getElementById('textfeld');
-  target.innerHTML = "";
+  var target = document.getElementById('target');
+  target.innerHTML = '';
 
   for (var i = 0; i < files.length; ++i) {
     var item = document.createElement('li');
@@ -164,11 +164,9 @@ function readFiles(files) {
     reader.addEventListener('load', getReadFile(reader, i));
     reader.readAsText(file);
 
-    $('textarea#textfeld').text(reader.result);
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
-  }
- 
+  };
 }
 
 async function writeFile() {
