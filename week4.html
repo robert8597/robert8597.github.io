@@ -162,10 +162,10 @@ function readFiles(files) {
 
     var reader = new FileReader();
     reader.addEventListener('load', getReadFile(reader, i));
-    
+    reader.readAsText(file);
 
-target.innerHTML = reader.readAsText(file);
-    item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
+
+    target.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
   
   }
