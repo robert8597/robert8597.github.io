@@ -164,7 +164,7 @@ function readFiles(files) {
     reader.addEventListener('load', getReadFile(reader, i));
     reader.readAsText(file);
 
-    target.innerHTML = i;
+    target.innerHTML = file;
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
   }
@@ -193,7 +193,7 @@ async function writeFile() {
 //Datei LESEN
 </script>
 
-<script src="js/app.js"></script>
+<!-- <script src="js/app.js"></script> -->
 
 </body>
 </html>
