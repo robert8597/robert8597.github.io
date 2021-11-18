@@ -166,6 +166,7 @@ function readFiles(files) {
 
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
+    target.innerText = file.result;
   };
 }
 
