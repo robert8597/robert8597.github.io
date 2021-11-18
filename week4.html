@@ -89,12 +89,17 @@
   reader.addEventListener("load", () => {
     // this will then display a text file
     content.innerText = reader.result;
+    localStorage.setItem("texti", reader.result);
   }, false);
 
   if (file) {
     reader.readAsText(file);
   }
+ 
 }
+var textiCache = localStorage.getItem('texti');
+textfeld = document.getElementById('textfeld');
+textfeld.innerText = textiCache;
     //VON MIR
   //Speicher lesen
 if ('storage' in navigator && 'estimate' in navigator.storage) {
@@ -214,7 +219,7 @@ async function writeFile() {
   target.innerHTML = 'Test content written to ' + file.name + '.'; }
 //Datei LESEN
 </script>
-
+<script src="js/app.js"></script>
 <!-- <script src="js/app.js"></script> -->
 
 </body>
