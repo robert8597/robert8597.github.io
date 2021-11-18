@@ -153,7 +153,7 @@ function readFiles(files) {
   document.getElementById('count').innerHTML = files.length;
 
   var target = document.getElementById('target');
-  target.innerHTML = files;
+  target.innerHTML = "";
 
   for (var i = 0; i < files.length; ++i) {
     var item = document.createElement('li');
@@ -163,7 +163,8 @@ function readFiles(files) {
     var reader = new FileReader();
     reader.addEventListener('load', getReadFile(reader, i));
     reader.readAsText(file);
-
+var test = reader.readAsText(file);
+target.innerHTML = test;
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
   
