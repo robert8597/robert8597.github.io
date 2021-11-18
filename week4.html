@@ -165,10 +165,10 @@ function readFiles(files) {
     reader.readAsText(file);
 
 
-    target.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
+    item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
-  
   }
+  target.innerHTML = item;
 }
 
 async function writeFile() {
