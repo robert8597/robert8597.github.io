@@ -167,10 +167,10 @@ function readFiles(files) {
     item.innerHTML = '' + file.name + ', ' + file.type + ', ' + file.size + ' bytes, last modified ' + file.lastModifiedDate + '';
     target.appendChild(item);
   
-    reader.onload = function(e){
+    reader.onload = function(files){
 		$("#target").val(e.target.result);
 	};
-	reader.readAsText($("#js-file")[0].files[0], "UTF-8");
+	reader.readAsText($("datei")[0].files[0], "UTF-8");
   };
 }
 
