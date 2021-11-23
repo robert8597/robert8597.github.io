@@ -75,8 +75,7 @@
 <input type="file" onchange="previewFile()"><br>
 <!-- <p class="content">test</p> -->
 <textarea id="textfeld" rows="4" columns="20" readonly></textArea>
- <!--
--->
+  <p id="alterText" class="content"></p>
 
 <script>
     //VON MIR
@@ -98,8 +97,8 @@
  
 }
 var textiCache = localStorage.getItem('texti');
-textfeld = document.getElementById('textfeld');
-textfeld.innerText = textiCache;
+alterText = document.getElementById('alterText');
+alterText.innerText = "Text aus Cache= "+textiCache;
     //VON MIR
   //Speicher lesen
 if ('storage' in navigator && 'estimate' in navigator.storage) {
