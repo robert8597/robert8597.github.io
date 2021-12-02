@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <title>Robert8597</title>
+    <style>
+ html {
+  text-align: center;
+}
+      ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #333;
+      }
+      
+      li {
+          float: left;
+      }
+      
+      li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+      }
+      
+      li a:hover {
+          background-color: #111;
+      }
+      </style>
+  </head>
+  <body>
+    <ul>
+      <li><a  href="index.html">Home</a></li>
+      <li><a class="active" href="week2.html">Week 2</a></li>
+      <li><a href="week3.html">Week 3</a></li>
+      <li><a href="week4.html">Week 4</a></li>
+      <li><a href="week5.html">Week 5</a></li>
+      <li><a href="about.asp">About</a></li>
+    </ul>
+
+    <p>Current permission status is <b id="status">unavailable</b>.</p>
+
+<p><button onclick="requestPermission()">Request permission</button></p>
+<p><button onclick="nonPersistentNotification()">Non-persistent notification</button></p>
+<p><button onclick="persistentNotification()">Persistent notification</button></p>
+
+
+<div>
+    <p>
+      <b><a href="/geolocation.html">Geolocation</a></b> permission status is <b id="geolocation-status">unknown</b>.
+      
+      <button onclick="requestGeolocation()">Request</button>
+    </p>
+    <p>
+      <b><a href="/local-notifications.html">Notifications</a></b> permission status is <b id="notifications-status">unknown</b>.
+      
+      <button onclick="requestNotifications()">Request</button>
+    </p>
+    <p>
+      <b><a href="/push-notifications.html">Push</a></b> permission status is <b id="push-status">unknown</b>.
+      
+      <button onclick="requestPush()">Request</button>
+    </p>
+    <p>
+      <b>Midi</b> permission status is <b id="midi-status">unknown</b>.
+      
+      <button onclick="requestMidi()">Request</button>
+    </p>
+    <p>
+      <b><a href="/camera-microphone.html">Camera</a></b> permission status is <b id="camera-status">unknown</b>.
+      
+      <button onclick="requestCamera()">Request</button>
+    </p>
+    <p>
+      <b><a href="/camera-microphone.html">Microphone</a></b> permission status is <b id="microphone-status">unknown</b>.
+      
+      <button onclick="requestMicrophone()">Request</button>
+    </p>
+    <p>
+      <b><a href="/background-sync.html">Background Sync</a></b> permission status is <b id="background-sync-status">unknown</b>.
+    </p>
+    <p>
+      <b><a href="/ambient-light.html">Ambient Light Sensor</a></b> permission status is <b id="ambient-light-sensor-status">unknown</b>.
+    </p>
+    <p>
+      <b><a href="/device-motion.html">Accelerometer</a></b> permission status is <b id="accelerometer-status">unknown</b>.
+    </p>
+    <p>
+      <b><a href="/device-motion.html">Gyroscope</a></b> permission status is <b id="gyroscope-status">unknown</b>.
+    </p>
+    <p>
+      <b><a href="/device-motion.html">Magnetometer</a></b> permission status is <b id="magnetometer-status">unknown</b>.
+    </p>
+  </div>
+  
+  <p id="logTarget"></p>
+
+<script>
+var $status = document.getElementById('status');
+
+if ('Notification' in window) {
+  $status.innerText = Notification.permission;
+}
+
+function requestPermission() {
+  if (!('Notification' in window)) {
+    alert('Notification API not supported!');
+    return;
+  }
+  
+  Notification.requestPermission(function (result) {
+    $status.innerText = result;
+  });
+}
+
+function nonPersistentNotification() {
+  if (!('Notification' in window)) {
+    alert('Notification API not supported!');
+    return;
+  }
+  
+  try {
+    var notification = new Notification("Hi there - non-persistent!");
+  } catch (err) {
+    alert('Notification API error: ' + err);
+  }
+}
+
+function persistentNotification() {
+  if (!('Notification' in window) || !('ServiceWorkerRegistration' in window)) {
+    alert('Persistent Notification API not supported!');
+    return;
+  }
+  
+  try {
+    navigator.serviceWorker.getRegistration()
+      .then((reg) => reg.showNotification("Hi there - persistent!"))
+      .catch((err) => alert('Service Worker registration error: ' + err));
+  } catch (err) {
+    alert('Notification API error: ' + err);
+  }
+}   
+
+if ('permissions' in navigator) {
+  var logTarget = document.getElementById('logTarget');
+
+  function handleChange(permissionName, newState) {
+    var timeBadge = new Date().toTimeString().split(' ')[0];
+    var newStateInfo = document.createElement('p');
+    newStateInfo.innerHTML = '' + timeBadge + ' State of ' + permissionName + ' permission status changed to ' + newState + '.';
+    logTarget.appendChild(newStateInfo);
+  }
+
+  function checkPermission(permissionName, descriptor) {
+    try {
+    navigator.permissions.query(Object.assign({name: permissionName}, descriptor))
+      .then(function (permission) {
+        document.getElementById(permissionName + '-status').innerHTML = permission.state;
+        permission.addEventListener('change', function (e) {
+          document.getElementById(permissionName + '-status').innerHTML = permission.state;
+          handleChange(permissionName, permission.state);
+        });
+      });
+    } catch (e) {
+    }
+  }
+
+  checkPermission('geolocation');
+  checkPermission('notifications');
+  checkPermission('push', {userVisibleOnly: true});
+  checkPermission('midi', {sysex: true});
+  checkPermission('camera');
+  checkPermission('microphone');
+  checkPermission('background-sync');
+  checkPermission('ambient-light-sensor');
+  checkPermission('accelerometer');
+  checkPermission('gyroscope');
+  checkPermission('magnetometer');
+
+  var noop = function () {};
+  navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+  
+  function requestGeolocation() {
+    navigator.geolocation.getCurrentPosition(noop);
+  }
+
+  function requestNotifications() {
+    Notification.requestPermission();
+  }
+
+  function requestPush() {
+    navigator.serviceWorker.getRegistration()
+      .then(function (serviceWorkerRegistration) {
+        serviceWorkerRegistration.pushManager.subscribe();
+      });
+  }
+
+  function requestMidi() {
+    navigator.requestMIDIAccess({sysex: true});
+  }
+  
+  function requestCamera() {
+    navigator.getUserMedia({video: true}, noop, noop)
+  }
+  
+  function requestMicrophone() {
+    navigator.getUserMedia({audio: true}, noop, noop)
+  }
+}
+
+</script>
+<script src="js/app.js">
+
+
+
+</script>
+<!-- <script src="js/app.js"></script> -->
+
+</body>
+</html>
