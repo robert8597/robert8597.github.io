@@ -17,7 +17,7 @@ const assets = [
   "/images/coffee9.jpg"
 ];
 
-
+const sw_version = 1.0;
 
 self.addEventListener("install", installEvent => {
   console.log(installEvent);
