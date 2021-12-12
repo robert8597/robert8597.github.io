@@ -5,7 +5,7 @@ const container = document.querySelector(".container");
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
     navigator.serviceWorker
-      .register("/sw.js")
+      .register("/serviceWorker.js")
       .then(res => console.log("service worker registered"))
       .catch(err => console.log("service worker not registered", err));
   });
@@ -21,11 +21,11 @@ if ("serviceWorker" in navigator) {
     var tiltLR = eventData.gamma;
     var tiltFB = eventData.beta;
     var dir = eventData.alpha;
-    
+    /*
     document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
     document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
     document.getElementById("doDirection").innerHTML = Math.round(dir);
-  
+  */
     var logo = document.getElementById("imgLogo");
     logo.style.webkitTransform = "rotate(" + tiltLR + "deg) rotate3d(1,0,0, " + (tiltFB * -1) + "deg)";
     logo.style.MozTransform = "rotate(" + tiltLR + "deg)";
