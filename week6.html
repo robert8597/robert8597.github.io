@@ -100,10 +100,11 @@ tr:nth-child(even) {
   function loadCache(){
 var tabelleCache = localStorage.getItem('tabelle');
 tabelleInHTML = document.getElementById('mytab');
-for (let i = 0; i < tabelleCache.length; i++) {
+//for (let i = 0; i < tabelleCache.length; i++) {
    // var clone = cloneEl(tabelleCache[i]);
+   tabelleInHTML.append("<br>");
     tabelleInHTML.append(tabelleCache);
-}
+//}
 console.log("Tablle aus Cache geladen");
   }
 function savetoCache(){
