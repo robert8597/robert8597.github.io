@@ -113,10 +113,11 @@ function savetoCache(){
   
   for (let i = 0; i < rows.length; i++) {
     var clone = cloneEl(rows[i]);
+    localStorage.setItem("tabelle", clone);
     neueTabelle.append(clone);
 }
-var clone = cloneEl(rows);
-localStorage.setItem("tabelle", clone);
+// var clone = cloneEl(rows);
+// localStorage.setItem("tabelle", clone);
 console.log("Tabelle im Cache gespeichert");
 }
 
