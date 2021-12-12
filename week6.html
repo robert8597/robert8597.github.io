@@ -35,6 +35,24 @@
       li a:hover {
           background-color: #111;
       }
+
+      
+      table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
       </style>
   </head>
   <body>
@@ -47,19 +65,89 @@
       <li><a href="week6.html">Week 6</a></li>
       <li><a href="about.asp">About</a></li>
     </ul>
-
+   
+    <form action="">
+      <input type="button" value="Add a Row" onclick="addRow()">
+      <!--<input type="button" value="Add a Column" onclick="addColumn()"> -->
+      <input type="button" value="Save to Cache" onclick="savetoCache()">
+  </form>
+  <br>
   
-
+  <table id="mytab" border="1" cellspacing="0" cellpadding="0">
     <tr>
       <th>Description</th>
       <th>Date</th>
-      <th>Category</th>
-      <th>Amount</th>
-      <th>Balance</th>
-  </tr>
+    <th>Category</th>
+    <th>Amount</th>
+    <th>Balance</th>
+    </tr>  
+    <tr>
+          <td><input type="text" name="enter1"></td>
+          <td><input type="text" name="enter2"></td>
+          <td><input type="text" name="enter1"></td>
+          <td><input type="text" name="enter2"></td>
+          <td><input type="text" name="enter2"></td>
+      </tr>
+  
+  </table>
 
 
+  <table id="testTabelle" border="1" cellspacing="0" cellpadding="0">
 
+  </table>
+<script>
+var tabelleCache = localStorage.getItem('tabelle');
+tabelleInHTML = document.getElementById('mytab');
+for (let i = 0; i < tabelleCache.length; i++) {
+    var clone = cloneEl(tabelleCache[i]);
+    tabelleInHTML.append(clone);
+}
+function savetoCache(){
+  var root = document.getElementById('mytab').getElementsByTagName('tbody')[0];
+  var rows = root.getElementsByTagName('tr');
+  var neueTabelle = document.getElementById('testTabelle');
+  
+  for (let i = 0; i < rows.length; i++) {
+    var clone = cloneEl(rows[i]);
+    neueTabelle.append(clone);
+}
+var clone = cloneEl(rows);
+localStorage.setItem("tabelle", clone);
+}
+
+
+function addRow() {
+  var root = document.getElementById('mytab').getElementsByTagName('tbody')[0];
+  var rows = root.getElementsByTagName('tr');
+  var clone = cloneEl(rows[rows.length - 1]);
+  cleanUpInputs(clone);
+  root.appendChild(clone);
+}
+function addColumn() {
+  var rows = document.getElementById('mytab').getElementsByTagName('tr'), i = 0, r, c, clone;
+    while (r = rows[i++]) {
+      c = r.getElementsByTagName('td');
+      clone = cloneEl(c[c.length - 1]);
+      cleanUpInputs(clone);
+      c[0].parentNode.appendChild(clone);
+    }
+}
+function cloneEl(el) {
+  var clo = el.cloneNode(true);
+  return clo;
+}
+
+function cleanUpInputs(obj) {
+  for (var i = 0; n = obj.childNodes[i]; ++i) {
+    if (n.childNodes && n.tagName != 'INPUT') {
+      cleanUpInputs(n);
+    } else if (n.tagName == 'INPUT' && n.type == 'text') {
+      n.value = '';
+    }
+  }  
+}
+
+</script>
 
 <script src="js/app.js">
 
