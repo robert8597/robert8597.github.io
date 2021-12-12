@@ -70,6 +70,7 @@ tr:nth-child(even) {
       <input type="button" value="Add a Row" onclick="addRow()">
       <!--<input type="button" value="Add a Column" onclick="addColumn()"> -->
       <input type="button" value="Save to Cache" onclick="savetoCache()">
+      <input type="button" value="Load Cache" onclick="loadCache()">
   </form>
   <br>
   
@@ -96,12 +97,15 @@ tr:nth-child(even) {
 
   </table>
 <script>
+  function loadCache(){
 var tabelleCache = localStorage.getItem('tabelle');
 tabelleInHTML = document.getElementById('mytab');
 for (let i = 0; i < tabelleCache.length; i++) {
     var clone = cloneEl(tabelleCache[i]);
     tabelleInHTML.append(clone);
 }
+console.log("Tablle aus Cache geladen");
+  }
 function savetoCache(){
   var root = document.getElementById('mytab').getElementsByTagName('tbody')[0];
   var rows = root.getElementsByTagName('tr');
@@ -113,6 +117,7 @@ function savetoCache(){
 }
 var clone = cloneEl(rows);
 localStorage.setItem("tabelle", clone);
+console.log("Tabelle im Cache gespeichert");
 }
 
 
