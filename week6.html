@@ -103,7 +103,7 @@ tabelleInHTML = document.getElementById('mytab');
 //for (let i = 0; i < tabelleCache.length; i++) {
    // var clone = cloneEl(tabelleCache[i]);
    
-    tabelleInHTML.append(tabelleCache.cloneNode(true));
+    tabelleInHTML.append(JSON.parse(tabelleCache));
 //}
 console.log("Tablle aus Cache geladen");
   }
@@ -114,7 +114,7 @@ function savetoCache(){
   
   for (let i = 0; i < rows.length; i++) {
     var clone = cloneEl(rows[i]);
-    localStorage.setItem("tabelle", clone);
+    localStorage.setItem("tabelle", JSON.stringify(clone));
     neueTabelle.append(clone);
 }
 // var clone = cloneEl(rows);
