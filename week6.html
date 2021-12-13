@@ -84,10 +84,24 @@ tr:nth-child(even) {
   <input class="sss1" type="text" name="balance" id="balance">
   <br>
   <input type="button" value="Hinzufügen" onclick="insArray()">
+  <input type="button" value="Local Cache löschen" onclick="localStorageloeschen()">
 
+<br>
+  <img src="tabelle.png" alt="Italian Trulli">
+
+
+  <script type="text/javascript" src="dataTabelle.json>"> </script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
+  
   <script type="text/javascript">
+
+function test() {
+
+}
+function localStorageloeschen() {
+  localStorage.clear();
+}
     if (localStorage.getItem("testCustomers") === null) {
   erstelleTabelle()
 }
