@@ -9,6 +9,11 @@
     <link rel="manifest" href="manifest.json">
     <title>Robert8597</title>
     <style>
+      .sss1{
+
+margin-left:50px;
+
+}
  html {
   text-align: center;
 }
@@ -66,96 +71,94 @@ tr:nth-child(even) {
       <li><a href="about.asp">About</a></li>
     </ul>
    
-    <form action="">
-      <input type="button" value="Add a Row" onclick="addRow()">
-      <!--<input type="button" value="Add a Column" onclick="addColumn()"> -->
-      <input type="button" value="Save to Cache" onclick="savetoCache()">
-      <input type="button" value="Load Cache" onclick="loadCache()">
-  </form>
+    
+   
+  
+      
+  
   <br>
   
-  <table id="mytab" border="1" cellspacing="0" cellpadding="0">
-    <tr>
-      <th>Description</th>
-      <th>Date</th>
-    <th>Category</th>
-    <th>Amount</th>
-    <th>Balance</th>
-    </tr>  
-    <tr>
-          <td><input type="text" name="enter1"></td>
-          <td><input type="text" name="enter2"></td>
-          <td><input type="text" name="enter1"></td>
-          <td><input type="text" name="enter2"></td>
-          <td><input type="text" name="enter2"></td>
-      </tr>
-  
-  </table>
+   <table id="mytab" border="1" cellspacing="0" cellpadding="0">
 
+  </table> 
+  <input class="sss1" type="text" name="desc" id="desc">
+  <input class="sss1" type="text" name="date" id="date">
+  <input class="sss1" type="text" name="category" id="category">
+  <input class="sss1" type="text" name="amount" id="amount">
+  <input class="sss1" type="text" name="balance" id="balance">
+  <br>
+  <input type="button" value="Hinzufügen" onclick="insArray()">
 
-  <table id="testTabelle" border="1" cellspacing="0" cellpadding="0">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
-  </table>
-<script>
-  function loadCache(){
-var tabelleCache = localStorage.getItem('tabelle');
-tabelleInHTML = document.getElementById('mytab');
-//for (let i = 0; i < tabelleCache.length; i++) {
-   // var clone = cloneEl(tabelleCache[i]);
-   
-    tabelleInHTML.append(JSON.parse(tabelleCache));
-//}
-console.log("Tablle aus Cache geladen");
-  }
-function savetoCache(){
-  var root = document.getElementById('mytab').getElementsByTagName('tbody')[0];
-  var rows = root.getElementsByTagName('tr');
-  var neueTabelle = document.getElementById('testTabelle');
-  
-  for (let i = 0; i < rows.length; i++) {
-    var clone = cloneEl(rows[i]);
-    localStorage.setItem("tabelle", JSON.stringify(clone));
-    neueTabelle.append(clone);
+  <script type="text/javascript">
+    if (localStorage.getItem("testCustomers") === null) {
+  erstelleTabelle()
 }
-// var clone = cloneEl(rows);
-// localStorage.setItem("tabelle", clone);
-console.log("Tabelle im Cache gespeichert");
-}
-
-
-function addRow() {
-  var root = document.getElementById('mytab').getElementsByTagName('tbody')[0];
-  var rows = root.getElementsByTagName('tr');
-  var clone = cloneEl(rows[rows.length - 1]);
-  cleanUpInputs(clone);
-  root.appendChild(clone);
-}
-function addColumn() {
-  var rows = document.getElementById('mytab').getElementsByTagName('tr'), i = 0, r, c, clone;
-    while (r = rows[i++]) {
-      c = r.getElementsByTagName('td');
-      clone = cloneEl(c[c.length - 1]);
-      cleanUpInputs(clone);
-      c[0].parentNode.appendChild(clone);
+    GenerateTable()
+    function insArray() {
+      var customersCache = JSON.parse(localStorage.getItem("testCustomers"));
+        var customers = new Array();
+        for (var i = 0; i < customersCache.length; i++) {
+        customers.push(customersCache[i]);
+        }
+        var desc = document.getElementById("desc").value;
+        var date = document.getElementById("date").value;
+        var category = document.getElementById("category").value;
+        var amount = document.getElementById("amount").value;
+        var balance = document.getElementById("balance").value;
+        customers.push([desc, date, category, amount, balance]);
+        localStorage.setItem("testCustomers", JSON.stringify(customers));
+        GenerateTable()
     }
-}
-function cloneEl(el) {
-  var clo = el.cloneNode(true);
-  return clo;
-}
-
-function cleanUpInputs(obj) {
-  for (var i = 0; n = obj.childNodes[i]; ++i) {
-    if (n.childNodes && n.tagName != 'INPUT') {
-      cleanUpInputs(n);
-    } else if (n.tagName == 'INPUT' && n.type == 'text') {
-      n.value = '';
+    function GenerateTable() {
+        //Build an array containing Customer records.
+        //var customers = new Array();
+        var customersCache = JSON.parse(localStorage.getItem("testCustomers"));
+        var customers = new Array();
+        for (var i = 0; i < customersCache.length; i++) {
+        customers.push(customersCache[i]);
+        }
+        //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+ 
+        //Get the count of columns.
+        var columnCount = customers[0].length;
+ 
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (var i = 1; i < customers.length; i++) {
+            row = table.insertRow(-1);
+            for (var j = 0; j < columnCount; j++) {
+                var cell = row.insertCell(-1);
+                cell.innerHTML = customers[i][j];
+            }
+        }
+ 
+        var dvTable = document.getElementById("mytab");
+        dvTable.innerHTML = "";
+        dvTable.appendChild(table);
     }
-  }  
-}
+    function erstelleTabelle(){
+      var customers = new Array();
+        customers.push(["Description", "Date", "Category", "Amount", "Balance"]);
+        // customers.push([1, "John Hammond", "United States"]);
+        // customers.push([2, "Mudassar Khan", "India"]);
+        // customers.push([3, "Suzanne Mathews", "France"]);
+        // customers.push([4, "Robert Schidner", "Russia"]);
 
+        localStorage.setItem("testCustomers", JSON.stringify(customers));
+        
+    }
 </script>
-
 <script src="js/app.js">
 
 
