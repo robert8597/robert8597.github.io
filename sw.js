@@ -1,5 +1,5 @@
 
-const serviceworker_version = 2.0
+const serviceworker_version = 3.0
 
 
 const staticDevCoffee = "dev-coffee-site-v1"
