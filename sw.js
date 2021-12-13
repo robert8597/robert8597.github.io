@@ -8,7 +8,7 @@ const assets = [
     "/index.html",
     "/css/style.css",
     "/js/app.js",
-    //"/tabelle.png"
+    "/tabelle.png"
 ]
 
 self.addEventListener("install", installEvent => {
@@ -38,6 +38,9 @@ self.addEventListener('install', event => {
   caches.delete("dev-coffee-site-v1");
   console.log("old cache deleted");
   // cache a horse SVG into a new cache, static-v2
+  caches.open(staticDevCoffee).then(cache => {
+    cache.addAll(assets)
+})
   
 });
 
@@ -72,15 +75,4 @@ self.addEventListener('fetch', event => {
   }
 });
 
-self.addEventListener("fetch", event => {
-  // console.log(event.request);
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then(res => {
-        return res || fetch(event.request);
-      })
-      .catch(console.log)
-  );
-}
-);
+
