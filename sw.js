@@ -1,5 +1,5 @@
 
-const serviceworker_version = 7.0
+const serviceworker_version = 1.0
 
 
 const staticDevCoffee = "dev-coffee-site-v1"
@@ -35,22 +35,18 @@ self.addEventListener("fetch", fetchEvent => {
 const expectedCaches = ["dev-coffee-site-v1"];
 
 self.addEventListener('install', event => {
-  console.log('V2 installing…'+"Service worker version="+serviceworker_version);
+  console.log('V1 installing…'+"Service worker version="+serviceworker_version);
   caches.delete("dev-coffee-site-v1");
   console.log("old cache deleted");
   // cache a horse SVG into a new cache, static-v2
   caches.open(staticDevCoffee).then(cache => {
     cache.addAll(assets)
-})
-  
+}) 
 });
 
-self.addEventListener('message', function(event) {
-  event.ports[0].postMessage({'test': 'This is my response.'});
-});
 
 self.addEventListener('activate', event => {
-  console.log("Service worker version="+serviceworker_version);
+  console.log("Service worker activated, deleting cache now");
   // delete any caches that aren't in expectedCaches
   // which will get rid of static-v1
   event.waitUntil(
@@ -66,14 +62,8 @@ self.addEventListener('activate', event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
 
-  // serve the horse SVG from the cache if the request is
-  // same-origin and the path is '/dog.svg'
-  if (url.origin == location.origin && url.pathname == '/dog.svg') {
-    event.respondWith(caches.match('/horse.svg'));
-  }
+
+self.addEventListener('message', function(event) {
+  event.ports[0].postMessage({'test': 'This is my response.'});
 });
-
-
