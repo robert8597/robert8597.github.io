@@ -32,7 +32,7 @@ if ("serviceWorker" in navigator) {
     logo.style.transform = "rotate(" + tiltLR + "deg) rotate3d(1,0,0, " + (tiltFB * -1) + "deg)"; }
      /* Device Position
   */
-  /*
+ 
   function getUserMedia(options, successCallback, failureCallback) {
     var api = navigator.getUserMedia || navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -68,7 +68,7 @@ if ("serviceWorker" in navigator) {
       alert('Error: ' + err);
     });
   }
-  */
+
 
   var target = document.getElementById('target');
 var watchId;
