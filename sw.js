@@ -8,7 +8,8 @@ const assets = [
     "/index.html",
     "/css/style.css",
     "/js/app.js",
-    //"/tabelle.png"
+    "/tabelle.png",
+    "/favicon.ico"
 ]
 
 self.addEventListener("install", installEvent => {
