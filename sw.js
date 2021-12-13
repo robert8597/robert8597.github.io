@@ -1,5 +1,5 @@
 
-const serviceworker_version = 1.0
+const serviceworker_version = 2.0
 
 
 const staticDevCoffee = "dev-coffee-site-v1"
@@ -8,7 +8,7 @@ const assets = [
     "/index.html",
     "/css/style.css",
     "/js/app.js",
-    "/tabelle.png"
+    //"/tabelle.png"
 ]
 
 self.addEventListener("install", installEvent => {
@@ -31,11 +31,11 @@ self.addEventListener("fetch", fetchEvent => {
 
 
 
-const expectedCaches = ['testCustomers'];
+const expectedCaches = ["dev-coffee-site-v1"];
 
 self.addEventListener('install', event => {
-  console.log('V2 installing…9');
-  console.log("Service worker version="+serviceworker_version);
+  console.log('V2 installing…'+"Service worker version="+serviceworker_version);
+ 
   // cache a horse SVG into a new cache, static-v2
   
 });
