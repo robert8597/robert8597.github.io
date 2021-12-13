@@ -1,5 +1,5 @@
 
-const serviceworker_version = 6.0
+const serviceworker_version = 7.0
 
 
 const staticDevCoffee = "dev-coffee-site-v1"
@@ -8,7 +8,7 @@ const assets = [
     "/index.html",
     "/css/style.css",
     "/js/app.js",
-    "/tabelle.png"
+    //"/tabelle.png"
 ]
 
 self.addEventListener("install", installEvent => {
